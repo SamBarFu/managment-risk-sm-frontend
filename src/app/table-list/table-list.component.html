@@ -1,0 +1,109 @@
+<div class="m-5  mx-auto" style="height:100vh;width:100%;display:flex">
+  <div class=" mx-auto col-lg-10 col-md-12 col-12 col-sm-12">
+    <form [formGroup]="riesgo"  class="form-group" (ngSubmit)="agregar()">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Riesgo</h4>
+                        <p class="card-category">Escriba la información general de este riesgo.</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <input  type="text" formControlName="name"[ngClass]="{ 'is-invalid': submitted && f.name.errors }"  class="form-control" placeholder="Nombre">
+                            <div *ngIf="submitted && f.name.errors" class="form-group d-flex justify-content-between invalid-feedback">
+                                <div *ngIf="f.name.errors.required"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <select formControlName="impactId" [ngClass]="{ 'is-invalid': submitted && f.impactId.errors }" class="form-control">
+                                    <option value="" disabled selected hidden>Seleccione......</option>
+                                    <option [value]=item.id *ngFor="let item of impacto" selected>{{item.level}}</option>                                 
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <select formControlName="probabilityId" [ngClass]="{ 'is-invalid': submitted && f.probabilityId.errors }" class="form-control">
+                                    <option value="" disabled selected hidden>Seleccione......</option>
+                                    <option *ngFor="let item of probabilidad" [value]=item.id  >{{item.level}}</option>                             
+                                </select>                            
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" formControlName="description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }"  class="form-control" placeholder="Descripcion">
+                            <div *ngIf="submitted && f.description.errors" class="form-group d-flex justify-content-between invalid-feedback">
+                                <div *ngIf="f.description.errors.required"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <button type="submit" class="m-2 btn btn-danger pull-right">Agregar riesgo</button>                                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <table *ngIf="riesgosTotales" class="text-center table table-dark table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Code</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Probabilidad</th>
+            <th scope="col">Impacto</th>
+            <th scope="col">Valor</th>
+            <th scope="col">Borrar</th>
+            <th scope="col">Actualizar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of riesgosTotales">
+            <td>{{item.code}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.Probability.level}}</td>
+            <td>{{item.Impact.level}}</td>
+            <td>{{(item.Probability.weight*item.Impact.weight)}}</td>
+            <td class="text-center" (click)="salir()"><i type="button"class="material-icons">delete</i></td>  
+            <td class="text-center" (click)="modal(item)"><i data-bs-toggle="modal" type="button" data-bs-target="#exampleModal" class="material-icons">update</i></td>  
+          </tr>
+        </tbody>
+      </table>
+  </div>
+</div>
+<div  class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Actualizar Riesgo</h5>
+            </div>
+            <div *ngIf="riesgoPut">
+                <div  class="modal-body">
+                    <div class="form-group">
+                        <input #nombre type="text" [value]="riesgoPut.name" class="form-control"  placeholder="Nombre">
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <select #probabilida class="form-control">
+                                <option [value]="riesgoPut.Probability.id" hidden selected>{{riesgoPut.Probability.level}}</option>  
+                                <option  [value]=item.id *ngFor="let item of probabilidad">{{item.level}}</option>                                
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <select #impact  class="form-control">
+                                <option [value]="riesgoPut.Impact.id" hidden selected>{{riesgoPut.Impact.level}}</option>  
+                                <option [value]="item.id" *ngFor="let item of impacto">{{item.level}}</option>  
+                            </select>
+    
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input [value]="riesgoPut.description" #descripcion type="text" class="form-control" placeholder="Descripcion">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" (click)="actualizarRiesgo(nombre.value,probabilida.value,impact.value,descripcion.value)" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>

@@ -1,0 +1,82 @@
+<div class="m-0 color" style="height:100vh;width:100%;display:flex" >
+    <div class="h-75 card border-0 shadow-lg m-5 mx-auto col-lg-6 col-md-6 col-8 col-sm-6">
+        <div class="card-body">
+            <div class="text-center"> 
+                <label><strong>Registrarse</strong></label>             
+            </div>
+            <form [formGroup]="registroForm" (ngSubmit)="guardar()">
+                <div class="row form-group mt-3 p-0">
+                    <div class="col-6">
+                        <div >
+                            <label class="form-label">Nombre</label>
+                        </div>
+                        <div>
+                            <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" placeholder="Nombre">
+                            <div *ngIf="submitted && f.firstName.errors" class="form-group invalid-feedback">
+                            
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div>
+                            <label class="form-label">Apellido</label>
+                        </div>
+                        <div>
+                            <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" placeholder="Apellido">
+                            <div *ngIf="submitted && f.lastName.errors" class="form-group invalid-feedback">
+                                
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+                <div class="form-group mb-3">
+                    <div>
+                        <label class="form-label">Correo</label>
+                    </div>
+                    <div>
+                        <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" placeholder="Email">
+                        <div *ngIf="submitted && f.email.errors" class="form-group d-flex justify-content-between invalid-feedback">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <div>
+                        <label class="form-label">Contraseña</label>
+                    </div>
+                    <div>
+                        <input formControlName="password" type="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" placeholder="*********">               
+                        <div *ngIf="submitted && f.password.errors" class="form-group d-flex justify-content-between invalid-feedback">
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-outline-success ">Guardar</button>
+                </div>
+                <div class="text-center">
+                    <button type="button" class="btn btn-outline-success" (click)="salir()" >Salir</button>
+                </div>
+                <!-- <div *ngIf="error" class="text-center">
+                    <span>El usuario o contrasena son incorrectos</span>
+                </div> -->
+            </form>
+        </div>
+    </div>
+</div>
+<!-- <div class="modal fade  " tabindex="-1" role="dialog" data-toggle="mymodal" id="mymodal" data-backdrop="static"data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Editar elementos de este control</h5>
+            </div>              
+            <div class="modal-body text-center m-1">                    
+                <h3>gffgfdgdg</h3>                                    
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+  
+  
